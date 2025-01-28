@@ -1,8 +1,8 @@
 import axios from "axios";
 
-export const fetchRequest = async () => {
+export const fetchRequest = async (query, page) => {
   const response = await axios.get(
-    "https://hn.algolia.com/api/v1/search?query=react"
+    `https://hn.algolia.com/api/v1/search?query=${query}&page=${page}`
   );
   return response.data;
 };

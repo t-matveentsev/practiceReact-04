@@ -3,7 +3,7 @@ import ArticlesItem from "../ArticlesItem/ArticlesItem";
 const ArticlesList = ({ items }) => (
   <ul>
     {items.map((item) => (
-      <ArticlesItem key={item.ObjectID} item={item} />
+      <ArticlesItem key={items.ObjectID} item={item} />
     ))}
   </ul>
 );
