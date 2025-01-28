@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import ArticleList from "./components/ArticleList/ArticleList";
+import fetchRequest from "./services/api.js";
 
 export default function App() {
   const [articles, setArticles] = useState([]);
@@ -11,7 +12,7 @@ export default function App() {
       try {
         setIsError(false);
         setLoading(true); // 1. Встановлюємо індикатор в true перед запитом
-        const { hits } = await fetchArticles();
+        const { hits } = await fetchRequest();
         setArticles(hits);
       } catch {
         setIsError(true);
