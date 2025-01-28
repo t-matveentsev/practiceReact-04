@@ -3,6 +3,7 @@ import ArticleList from "./components/ArticlesList/ArticlesList";
 import SearchBar from "./components/SearchBar/SearchBar";
 import * as articlesService from "./services/api";
 import toast from "react-hot-toast";
+import s from "./App.module.css";
 
 export default function App() {
   const [articles, setArticles] = useState([]);
@@ -38,7 +39,7 @@ export default function App() {
   };
 
   return (
-    <div>
+    <div className={s.container}>
       <h1>Latest articles</h1>
       <SearchBar onSubmit={handleSetQuery} />
       {articles.length > 0 && <ArticleList items={articles} />}
