@@ -43,3 +43,12 @@ button {
   color: currentColor;
   cursor: pointer;
 }
+
+.dark {
+  background-color: gray;
+  min-height: 100vh;
+}
+.light {
+  background-color: white;
+  min-height: 100vh;
+}

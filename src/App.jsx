@@ -1,11 +1,19 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ArticleList from "./components/ArticlesList/ArticlesList";
 import SearchBar from "./components/SearchBar/SearchBar";
 import * as articlesService from "./services/api";
 import toast from "react-hot-toast";
 import s from "./App.module.css";
+import Header from "./components/Header/Header";
+import LoginForm from "./components/LoginForm/LoginForm";
+import { authContext } from "./providers/AuthProvider/AuthProvider";
+import { themeContext } from "./providers/ThemeProvider/ThemeProvider";
+import clsx from "clsx";
 
 export default function App() {
+  const { user } = useContext(authContext);
+  const { theme } = useContext(themeContext);
+
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -38,16 +46,21 @@ export default function App() {
     toast.success("Keep your search results");
   };
 
-  return (
-    <div className={s.container}>
-      <h1>Latest articles</h1>
-      <SearchBar onSubmit={handleSetQuery} />
-      {articles.length > 0 && <ArticleList items={articles} />}
-      {loading && <p>Loading data, please wait...</p>}
-      {isError && <p>Something went wrong!!</p>}
-      {articles.length > 0 && (
-        <button onClick={() => setPage((prev) => prev + 1)}>Load more</button>
-      )}
-    </div>
+  return user ? (
+    <main className={clsx(theme === "dark" ? "dark" : "light")}>
+      <Header></Header>
+      <div className={s.container}>
+        <h1>Latest articles</h1>
+        <SearchBar onSubmit={handleSetQuery} />
+        {articles.length > 0 && <ArticleList items={articles} />}
+        {loading && <p>Loading data, please wait...</p>}
+        {isError && <p>Something went wrong!!</p>}
+        {articles.length > 0 && (
+          <button onClick={() => setPage((prev) => prev + 1)}>Load more</button>
+        )}
+      </div>
+    </main>
+  ) : (
+    <LoginForm></LoginForm>
   );
 }
